@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Rubik from Google Fonts (loaded via next/font in layout) ─── */
+
+@layer base {
+  :root {
+    --color-brand-green:  #2D6A4F;
+    --color-brand-forest: #1B4332;
+    --color-brand-sage:   #52B788;
+    --color-warm-amber:   #F4A261;
+    --color-warm-cream:   #FFFBF5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-warm-cream text-gray-800;
+    font-family: var(--font-rubik), 'Rubik', system-ui, sans-serif;
+  }
+
+  /* RTL-aware selection */
+  ::selection {
+    background: #95D5B2;
+    color: #1B4332;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-black text-brand-forest leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-lg sm:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-brand-green hover:bg-brand-forest
+           text-white font-bold px-8 py-4 rounded-full
+           shadow-brand-md hover:shadow-brand-lg
+           transition-all duration-300 hover:-translate-y-1 active:translate-y-0
+           focus:outline-none focus:ring-4 focus:ring-brand-sage/40;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 bg-white hover:bg-brand-50
+           text-brand-green font-bold px-8 py-4 rounded-full border-2 border-brand-sage
+           transition-all duration-300 hover:-translate-y-1 active:translate-y-0
+           focus:outline-none focus:ring-4 focus:ring-brand-sage/40;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover
+           border border-gray-100/80 transition-all duration-300;
+  }
+
+  .card:hover {
+    @apply -translate-y-1;
+  }
+
+  .form-input {
+    @apply w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3
+           text-gray-800 placeholder-gray-400 font-medium
+           focus:border-brand-sage focus:outline-none focus:ring-4 focus:ring-brand-sage/15
+           transition-all duration-200;
+  }
+
+  .form-label {
+    @apply block text-sm font-semibold text-gray-700 mb-2;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm
+           border border-brand-sage/30 rounded-full px-4 py-1.5
+           text-sm font-semibold text-brand-green shadow-sm;
+  }
+}
+
+@layer utilities {
+  /* Animation delay helpers */
+  .animation-delay-200  { animation-delay: 200ms; }
+  .animation-delay-400  { animation-delay: 400ms; }
+  .animation-delay-600  { animation-delay: 600ms; }
+  .animation-delay-800  { animation-delay: 800ms; }
+  .animation-delay-1000 { animation-delay: 1000ms; }
+  .animation-delay-2000 { animation-delay: 2000ms; }
+  .animation-delay-4000 { animation-delay: 4000ms; }
+
+  .gradient-text {
+    @apply bg-gradient-to-br from-brand-forest via-brand-green to-brand-sage
+           bg-clip-text text-transparent;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/60;
+  }
+
+  /* RTL fix for icons used as decorators */
+  [dir='rtl'] .rtl-flip {
+    transform: scaleX(-1);
+  }
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #F0FAF4; }
+::-webkit-scrollbar-thumb { background: #52B788; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #2D6A4F; }
+
+/* ─── Focus ring for accessibility ─────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #52B788;
+  outline-offset: 3px;
+}
