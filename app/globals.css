@@ -6,11 +6,11 @@
 
 @layer base {
   :root {
-    --color-brand-green:  #2D6A4F;
-    --color-brand-forest: #1B4332;
-    --color-brand-sage:   #52B788;
-    --color-warm-amber:   #F4A261;
-    --color-warm-cream:   #FFFBF5;
+    --color-brand-green:  #5C6B38;
+    --color-brand-forest: #3D4728;
+    --color-brand-sage:   #8A9B68;
+    --color-warm-amber:   #C07850;
+    --color-warm-cream:   #F5EDE4;
   }
 
   html {
@@ -26,8 +26,8 @@
 
   /* RTL-aware selection */
   ::selection {
-    background: #95D5B2;
-    color: #1B4332;
+    background: #C2D0A0;
+    color: #3D4728;
   }
 }
 
@@ -97,7 +97,7 @@
   .animation-delay-4000 { animation-delay: 4000ms; }
 
   .gradient-text {
-    @apply bg-gradient-to-br from-brand-forest via-brand-green to-brand-sage
+    @apply bg-gradient-to-br from-brand-forest via-brand-green to-warm-terracotta
            bg-clip-text text-transparent;
   }
 
@@ -114,12 +114,12 @@
 
 /* ─── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 6px; }
-::-webkit-scrollbar-track { background: #F0FAF4; }
-::-webkit-scrollbar-thumb { background: #52B788; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #2D6A4F; }
+::-webkit-scrollbar-track { background: #F0F2E8; }
+::-webkit-scrollbar-thumb { background: #8A9B68; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #5C6B38; }
 
 /* ─── Focus ring for accessibility ─────────────────────────── */
 *:focus-visible {
-  outline: 2px solid #52B788;
+  outline: 2px solid #8A9B68;
   outline-offset: 3px;
 }

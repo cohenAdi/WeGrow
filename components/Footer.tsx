@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="flex items-center gap-2">
           <span className="text-xl">🌱</span>
           <span className="text-lg font-black text-white tracking-tight">
-            We<span className="text-brand-sage"> Grow</span>
+            We<span className="text-warm-rose"> Grow</span>
           </span>
         </div>
 

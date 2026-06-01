@@ -31,7 +31,7 @@ export default function Navbar() {
         <a href="#" className="flex items-center gap-2 group">
           <span className="text-2xl transition-transform group-hover:rotate-12 duration-300">🌱</span>
           <span className="text-xl font-black text-brand-forest tracking-tight">
-            We<span className="text-brand-sage"> Grow</span>
+            We<span className="text-warm-terracotta"> Grow</span>
           </span>
         </a>
 
