@@ -91,7 +91,7 @@ export default function HowItWorksSection() {
         >
           <span className="text-3xl mb-3 block">🎉</span>
           <p className="text-xl font-bold text-brand-forest">
-            תסיימו יום עבודה שלם — וילדיכם חזרו הביתה שמחים ומלאי סיפורים
+            עובדים בראש שקט, בזמן שהילדים שלכם חוקרים, משחקים ומתפתחים.
           </p>
         </motion.div>
       </div>
