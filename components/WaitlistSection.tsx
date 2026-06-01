@@ -16,6 +16,7 @@ const schema = z.object({
   usage_expectation: z.string().min(1, 'אנא בחרו תדירות שימוש'),
   most_important:    z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
   free_text:         z.string().optional(),
+  time_slots:        z.array(z.string()).optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -24,6 +25,7 @@ const CITIES = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מז
 const AGES   = ['בהריון', '0-1', '1-2', '2-3', '3-4']
 const USAGE  = ['פעם בשבוע', '2-3 פעמים בשבוע', 'כמעט כל יום']
 const MOST_IMPORTANT = ['חלל עבודה', 'מרחב התפתחות לילד', 'קהילה', 'הרצאות', 'חוגים']
+const TIME_SLOTS     = ['8:00-12:00', '8:00-14:00', '8:00-16:30', '14:00-16:30']
 
 function ErrorMsg({ msg }: { msg?: string }) {
   if (!msg) return null
@@ -49,6 +51,7 @@ export default function WaitlistSection() {
   })
 
   const selectedImportant = watch('most_important') ?? []
+  const selectedTimeSlots = watch('time_slots') ?? []
 
   function toggleImportant(item: string) {
     const current = selectedImportant
@@ -56,6 +59,14 @@ export default function WaitlistSection() {
       ? current.filter((x) => x !== item)
       : [...current, item]
     setValue('most_important', next, { shouldValidate: true })
+  }
+
+  function toggleTimeSlot(item: string) {
+    const current = selectedTimeSlots
+    const next = current.includes(item)
+      ? current.filter((x) => x !== item)
+      : [...current, item]
+    setValue('time_slots', next)
   }
 
   async function onSubmit(data: FormData) {
@@ -245,6 +256,30 @@ export default function WaitlistSection() {
                     })}
                   </div>
                   <ErrorMsg msg={errors.most_important?.message} />
+                </div>
+
+                {/* Time slots */}
+                <div>
+                  <label className="form-label">איזה חלון זמנים מתאים לכם? (אפשר לבחור כמה)</label>
+                  <div className="flex flex-wrap gap-3 mt-1">
+                    {TIME_SLOTS.map((slot) => {
+                      const active = selectedTimeSlots.includes(slot)
+                      return (
+                        <button
+                          key={slot}
+                          type="button"
+                          onClick={() => toggleTimeSlot(slot)}
+                          className={`px-4 py-2 rounded-full border-2 text-sm font-semibold transition-all select-none ${
+                            active
+                              ? 'border-brand-green bg-brand-50 text-brand-green'
+                              : 'border-gray-200 text-gray-600 hover:border-brand-sage'
+                          }`}
+                        >
+                          {active ? '✓ ' : ''}{slot}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
 
                 {/* Free text */}

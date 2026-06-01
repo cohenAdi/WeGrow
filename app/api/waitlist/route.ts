@@ -11,6 +11,7 @@ const schema = z.object({
   usage_expectation:  z.string().min(1),
   most_important:     z.array(z.string()).min(1),
   free_text:          z.string().optional(),
+  time_slots:         z.array(z.string()).optional(),
 })
 
 export async function POST(req: NextRequest) {
