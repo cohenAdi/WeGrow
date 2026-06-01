@@ -20,8 +20,8 @@ const PERSONAS = [
   },
   {
     icon:  '👨‍👩‍👧',
-    title: 'משפחות צעירות',
-    desc:  'מחפשים מסגרת גמישה ואיכותית שמתאימה לקצב החיים שלהם.',
+    title: 'כל הורה',
+    desc:  'שמחפש דרך חדשה לשלב בין משפחה, עבודה וקהילה.',
     color: 'bg-warm-sand border-warm-amber/30',
     iconBg: 'bg-warm-amber/20',
   },
