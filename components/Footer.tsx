@@ -1,13 +1,18 @@
+import Image from 'next/image'
+
 export default function Footer() {
   return (
     <footer className="bg-brand-forest py-10">
       <div className="section-container flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🌱</span>
-          <span className="text-lg font-black text-white tracking-tight">
-            We<span className="text-warm-rose"> Grow</span>
-          </span>
+        <div className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="We Grow"
+            width={100}
+            height={40}
+            className="h-10 w-auto object-contain brightness-0 invert"
+          />
         </div>
 
         {/* Tagline */}
