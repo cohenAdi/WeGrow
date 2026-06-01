@@ -15,6 +15,7 @@ const schema = z.object({
   child_age:         z.string().min(1, 'אנא בחרו גיל ילד'),
   usage_expectation: z.string().min(1, 'אנא בחרו תדירות שימוש'),
   most_important:    z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
+  free_text:         z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -244,6 +245,17 @@ export default function WaitlistSection() {
                     })}
                   </div>
                   <ErrorMsg msg={errors.most_important?.message} />
+                </div>
+
+                {/* Free text */}
+                <div>
+                  <label className="form-label">משהו שתרצו להוסיף?</label>
+                  <textarea
+                    {...register('free_text')}
+                    rows={3}
+                    placeholder="שאלות, הצעות, או כל דבר אחר שתרצו שנדע..."
+                    className="form-input resize-none"
+                  />
                 </div>
 
                 {/* Server error */}
