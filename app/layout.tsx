@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: 'We Grow | מקום שבו הורים עובדים וילדים צומחים',
     description:
       'חלל עבודה להורים, מרחב התפתחות לילדים וקהילה למשפחות צעירות.',
-    url: 'https://growhub.co.il',
+    url: 'https://wegrow.co.il',
     siteName: 'We Grow',
     locale: 'he_IL',
     type: 'website',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       'חלל עבודה להורים, מרחב התפתחות לילדים וקהילה למשפחות צעירות.',
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://growhub.co.il' },
+  alternates: { canonical: 'https://wegrow.co.il' },
 }
 
 export default function RootLayout({
