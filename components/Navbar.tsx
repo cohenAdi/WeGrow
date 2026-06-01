@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -29,15 +28,11 @@ export default function Navbar() {
     >
       <div className="section-container h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center group">
-          <Image
-            src="/logo.png"
-            alt="We Grow"
-            width={120}
-            height={48}
-            className="h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
-            priority
-          />
+        <a href="#" className="flex items-center gap-2 group">
+          <span className="text-2xl transition-transform group-hover:rotate-12 duration-300">🌱</span>
+          <span className="text-xl font-black text-brand-forest tracking-tight">
+            We<span className="text-warm-terracotta"> Grow</span>
+          </span>
         </a>
 
         {/* Desktop nav links */}
