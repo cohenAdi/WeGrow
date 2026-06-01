@@ -3,141 +3,108 @@
 import { motion } from 'framer-motion'
 
 const fadeUp = (delay = 0) => ({
-  initial:    { opacity: 0, y: 30 },
+  initial:    { opacity: 0, y: 24 },
   animate:    { opacity: 1, y: 0 },
-  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
 })
-
-const CARDS = [
-  {
-    icon: '👩‍💻',
-    title: 'עבדו בשקט',
-    desc:  'חלל מאובזר עם WiFi מהיר, חדרי ישיבות ואווירה מקצועית',
-    delay: 0,
-  },
-  {
-    icon: '🧸',
-    title: 'ילדים מתפתחים',
-    desc:  'פעילויות התפתחות עם מטפלות מוסמכות בסביבה צבעונית ועשירה',
-    delay: 0.8,
-  },
-  {
-    icon: '🤝',
-    title: 'קהילה חמה',
-    desc:  'הכירו הורים כמוכם, שתפו חוויות וצרו חברויות אמיתיות',
-    delay: 1.6,
-  },
-]
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-hero-gradient">
-      {/* ── Animated blobs ─────────────────────────────────── */}
+      {/* Soft background blobs */}
       <div
-        className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full opacity-40 animate-blob"
-        style={{ background: 'radial-gradient(circle, #95D5B2 0%, transparent 70%)' }}
+        className="absolute -top-24 -right-24 w-[480px] h-[480px] rounded-full opacity-30 animate-blob"
+        style={{ background: 'radial-gradient(circle, #C2D0A0 0%, transparent 70%)' }}
       />
       <div
-        className="absolute top-48 -left-32 w-[380px] h-[380px] rounded-full opacity-35 animate-blob animation-delay-2000"
-        style={{ background: 'radial-gradient(circle, #FDDCB5 0%, transparent 70%)' }}
+        className="absolute top-1/2 -left-32 w-[360px] h-[360px] rounded-full opacity-20 animate-blob animation-delay-2000"
+        style={{ background: 'radial-gradient(circle, #F2DDD0 0%, transparent 70%)' }}
       />
       <div
-        className="absolute bottom-32 right-1/3 w-[320px] h-[320px] rounded-full opacity-25 animate-blob animation-delay-4000"
-        style={{ background: 'radial-gradient(circle, #D8F3DC 0%, transparent 70%)' }}
+        className="absolute bottom-40 right-1/4 w-[280px] h-[280px] rounded-full opacity-15 animate-blob animation-delay-4000"
+        style={{ background: 'radial-gradient(circle, #E5EDD5 0%, transparent 70%)' }}
       />
 
-      {/* ── Content ────────────────────────────────────────── */}
-      <div className="relative z-10 section-container pt-28 pb-16 flex flex-col items-center text-center">
+      <div className="relative z-10 section-container pt-24 pb-24 flex flex-col items-center text-center">
 
-        {/* Badge */}
+        {/* Location badge */}
         <motion.div {...fadeUp(0)}>
-          <span className="badge mb-8">
-            <span className="w-2 h-2 bg-brand-sage rounded-full animate-pulse-slow" />
-            🇮🇱 &nbsp;בקרוב בישראל — Coming Soon
+          <span className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-warm-terracotta/40 text-warm-terracotta rounded-full px-5 py-2 text-sm font-bold mb-8 shadow-sm">
+            📍 בקרוב ברחובות · נס ציונה · יבנה
           </span>
         </motion.div>
 
-        {/* Brand name */}
+        {/* Main headline — benefit-first */}
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-7xl sm:text-8xl lg:text-9xl font-black tracking-tight mb-3"
+          className="text-4xl sm:text-5xl lg:text-6xl font-black text-brand-forest leading-tight mb-5 max-w-2xl"
         >
-          <span className="gradient-text">We Grow</span>
+          עובדים בראש שקט.
+          <br />
+          <span className="text-warm-terracotta">הילדים צומחים לידכם.</span>
         </motion.h1>
 
-        {/* Hebrew tagline */}
+        {/* Subheadline */}
         <motion.p
           {...fadeUp(0.2)}
-          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-green mb-5"
+          className="text-xl sm:text-2xl font-bold text-brand-green mb-4"
         >
           מקום שבו הורים עובדים וילדים צומחים
         </motion.p>
 
-        {/* Supporting copy */}
+        {/* Description */}
         <motion.p
-          {...fadeUp(0.3)}
-          className="section-subtitle mb-10 max-w-xl"
+          {...fadeUp(0.25)}
+          className="text-base sm:text-lg text-gray-600 leading-relaxed mb-10 max-w-md"
         >
-          חלל עבודה להורים, מרחב התפתחות לילדים וקהילה למשפחות צעירות –
-          הכל תחת קורת גג אחת.
+          חלל עבודה להורים לצד מרחב התפתחות איכותי לילדים בגילאי 0–4.
         </motion.p>
 
-        {/* CTA cluster */}
-        <motion.div {...fadeUp(0.4)} className="flex flex-col sm:flex-row gap-4 mb-14">
-          <a href="#waitlist" className="btn-primary text-lg">
-            הצטרפו לרשימת ההמתנה
-            <svg className="w-5 h-5 rtl-flip" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4-4 4M21 12H3" />
-            </svg>
-          </a>
-          <a href="#solution" className="btn-secondary text-lg">
-            גלו עוד
-          </a>
-        </motion.div>
-
-        {/* Pill chips */}
+        {/* CTAs */}
         <motion.div
-          {...fadeUp(0.5)}
-          className="flex flex-wrap justify-center gap-3 mb-16"
+          {...fadeUp(0.3)}
+          className="flex flex-col sm:flex-row gap-3 mb-14 w-full sm:w-auto"
         >
-          {['💻 חלל עבודה', '👶 מרחב התפתחות', '☕ קהילה', '🎓 הרצאות וסדנאות', '🍰 קפה ובייגלה'].map((item) => (
-            <span
-              key={item}
-              className="glass rounded-full px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm"
-            >
-              {item}
-            </span>
-          ))}
+          <a href="#waitlist" className="btn-primary text-base sm:text-lg justify-center">
+            אני רוצה לשמוע כשנפתח 🌱
+          </a>
+          <a href="#how" className="btn-secondary text-base sm:text-lg justify-center">
+            גלו איך זה עובד
+          </a>
         </motion.div>
 
-        {/* Floating feature cards */}
+        {/* Visual split — immediate concept clarity */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-3xl"
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="grid grid-cols-2 gap-4 w-full max-w-sm sm:max-w-md mb-6"
         >
-          {CARDS.map((card) => (
-            <motion.div
-              key={card.title}
-              animate={{ y: [0, -12, 0] }}
-              transition={{
-                duration: 5,
-                delay: card.delay,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="glass rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-shadow text-right"
-            >
-              <span className="text-4xl mb-4 block">{card.icon}</span>
-              <h3 className="font-bold text-gray-800 text-lg mb-2">{card.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
-            </motion.div>
-          ))}
+          <div className="bg-white/85 backdrop-blur-sm rounded-2xl p-5 sm:p-6 text-center shadow-card border border-brand-pale">
+            <span className="text-4xl sm:text-5xl mb-3 block">👩‍💻</span>
+            <p className="font-black text-brand-forest text-sm sm:text-base">הורים עובדים</p>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">בשקט ובפרודוקטיביות</p>
+          </div>
+          <div className="bg-white/85 backdrop-blur-sm rounded-2xl p-5 sm:p-6 text-center shadow-card border border-warm-peach">
+            <span className="text-4xl sm:text-5xl mb-3 block">🧸</span>
+            <p className="font-black text-warm-terracotta text-sm sm:text-base">ילדים צומחים</p>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">עם מטפלות מוסמכות</p>
+          </div>
+        </motion.div>
+
+        {/* Together badge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
+          <span className="inline-flex items-center gap-2 bg-brand-forest/10 text-brand-forest rounded-full px-5 py-2.5 text-sm font-bold">
+            ❤️&nbsp; כולם קרובים — תחת קורת גג אחת
+          </span>
         </motion.div>
       </div>
 
-      {/* ── Wave divider ───────────────────────────────────── */}
+      {/* Wave divider */}
       <div className="absolute bottom-0 inset-x-0 pointer-events-none">
         <svg viewBox="0 0 1440 90" preserveAspectRatio="none" className="w-full h-16 md:h-20 fill-white">
           <path d="M0,48 C360,96 1080,0 1440,48 L1440,90 L0,90 Z" />

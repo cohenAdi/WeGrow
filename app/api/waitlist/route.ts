@@ -8,7 +8,7 @@ const schema = z.object({
   phone:              z.string().optional(),
   city:               z.string().min(1),
   child_age:          z.string().min(1),
-  usage_expectation:  z.string().min(1),
+  usage_expectation:  z.string().optional(),
   most_important:     z.array(z.string()).min(1),
   free_text:          z.string().optional(),
   time_slots:         z.array(z.string()).optional(),

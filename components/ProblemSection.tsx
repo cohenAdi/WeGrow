@@ -1,37 +1,36 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const PAINS = [
   {
     icon: '😩',
-    color: 'bg-red-50 border-red-100',
-    iconBg: 'bg-red-100',
-    title: 'עבודה מהבית עם ילדים',
-    desc: 'להתרכז כשהילד צועק, בוכה או רק רוצה את תשומת הלב שלכם — כמעט בלתי אפשרי.',
+    color: 'bg-warm-peach/40 border-warm-terracotta/20',
+    iconBg: 'bg-warm-terracotta/15',
+    title: 'קשה לעבוד מהבית עם פעוטות',
+    desc: 'להתרכז כשהילד צועק, בוכה או פשוט רוצה את תשומת הלב שלכם — כמעט בלתי אפשרי.',
   },
   {
     icon: '☕',
-    color: 'bg-orange-50 border-orange-100',
-    iconBg: 'bg-orange-100',
-    title: 'בתי קפה לא מתאימים',
-    desc: 'בתי קפה רועשים, אין מקום לילד, לא נוח לפגישות — ובכלל זה פשוט לא מסתדר.',
+    color: 'bg-warm-sand border-warm-amber/30',
+    iconBg: 'bg-warm-amber/20',
+    title: 'בתי קפה אינם מותאמים להורים',
+    desc: 'רועשים, אין מקום לילד, לא נוח לפגישות — ובכלל זה פשוט לא מסתדר.',
   },
   {
     icon: '🏫',
-    color: 'bg-yellow-50 border-yellow-100',
-    iconBg: 'bg-yellow-100',
-    title: 'גנים לא גמישים',
-    desc: 'שעות קבועות, ימים קבועים. מה קורה כשאתם צריכים לעבוד מוקדם, מאוחר, או ביומיים בלבד?',
+    color: 'bg-brand-50 border-brand-sage/30',
+    iconBg: 'bg-brand-sage/20',
+    title: 'גן מלא הוא לא תמיד הפתרון',
+    desc: 'שעות קבועות, ימים קבועים. מה קורה כשאתם צריכים גמישות אמיתית?',
   },
   {
     icon: '🫂',
-    color: 'bg-purple-50 border-purple-100',
-    iconBg: 'bg-purple-100',
-    title: 'ניתוק מקהילה',
-    desc: 'הורים רבים מרגישים לבד. מחפשים אנשים שמבינים אותם, שיש להם ילדים בגיל דומה, שאפשר לדבר איתם.',
+    color: 'bg-brand-pale/60 border-brand-mint/40',
+    iconBg: 'bg-brand-green/10',
+    title: 'הורים רבים מחפשים גם קהילה',
+    desc: 'לא רק מסגרת — אלא אנשים שמבינים אותם, שיש להם ילדים בגיל דומה, שאפשר לדבר איתם.',
   },
 ]
 
@@ -50,7 +49,9 @@ export default function ProblemSection() {
           className="text-center mb-16"
         >
           <span className="badge mb-4 inline-flex">😮‍💨 &nbsp;אתם לא לבד</span>
-          <h2 className="section-title mb-4">מכירים את ההרגשה?</h2>
+          <h2 className="section-title mb-4">
+            גם אתם מרגישים שאין פתרון שבאמת מתאים?
+          </h2>
           <p className="section-subtitle">
             אלפי הורים בישראל מתמודדים עם אותה בעיה בדיוק — בחירה בין קריירה לבין להיות עם הילדים.
           </p>
@@ -75,11 +76,11 @@ export default function ProblemSection() {
           ))}
         </div>
 
-        {/* Transition line */}
+        {/* Transition */}
         <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={inView ? { opacity: 1, scaleX: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-16 text-center"
         >
           <p className="text-xl font-bold text-brand-green">

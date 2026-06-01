@@ -8,24 +8,19 @@ import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const schema = z.object({
-  full_name:         z.string().min(2, 'שם חייב להכיל לפחות 2 תווים'),
-  email:             z.string().email('אנא הזינו כתובת אימייל תקינה'),
-  phone:             z.string().optional(),
-  city:              z.string().min(1, 'אנא בחרו עיר'),
-  child_age:         z.string().min(1, 'אנא בחרו גיל ילד'),
-  usage_expectation: z.string().min(1, 'אנא בחרו תדירות שימוש'),
-  most_important:    z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
-  free_text:         z.string().optional(),
-  time_slots:        z.array(z.string()).optional(),
+  full_name:      z.string().min(2, 'שם חייב להכיל לפחות 2 תווים'),
+  email:          z.string().email('אנא הזינו כתובת אימייל תקינה'),
+  phone:          z.string().min(9, 'אנא הזינו מספר טלפון תקין'),
+  city:           z.string().min(1, 'אנא בחרו עיר'),
+  child_age:      z.string().min(1, 'אנא בחרו גיל ילד'),
+  most_important: z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
 })
 
 type FormData = z.infer<typeof schema>
 
-const CITIES = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מזכרת בתיה', 'אחר']
-const AGES   = ['בהריון', '0-1', '1-2', '2-3', '3-4']
-const USAGE  = ['פעם בשבוע', '2-3 פעמים בשבוע', 'כמעט כל יום']
-const MOST_IMPORTANT = ['חלל עבודה', 'מרחב התפתחות לילד', 'קהילה', 'הרצאות', 'חוגים']
-const TIME_SLOTS     = ['8:00-12:00', '8:00-14:00', '8:00-16:30', '14:00-16:30']
+const CITIES         = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מזכרת בתיה', 'אחר']
+const AGES           = ['בהריון', '0-1', '1-2', '2-3', '3-4']
+const MOST_IMPORTANT = ['חלל עבודה', 'מרחב התפתחות לילדים', 'קהילה', 'הרצאות', 'חוגים']
 
 function ErrorMsg({ msg }: { msg?: string }) {
   if (!msg) return null
@@ -51,22 +46,12 @@ export default function WaitlistSection() {
   })
 
   const selectedImportant = watch('most_important') ?? []
-  const selectedTimeSlots = watch('time_slots') ?? []
 
   function toggleImportant(item: string) {
-    const current = selectedImportant
-    const next = current.includes(item)
-      ? current.filter((x) => x !== item)
-      : [...current, item]
+    const next = selectedImportant.includes(item)
+      ? selectedImportant.filter((x) => x !== item)
+      : [...selectedImportant, item]
     setValue('most_important', next, { shouldValidate: true })
-  }
-
-  function toggleTimeSlot(item: string) {
-    const current = selectedTimeSlots
-    const next = current.includes(item)
-      ? current.filter((x) => x !== item)
-      : [...current, item]
-    setValue('time_slots', next)
   }
 
   async function onSubmit(data: FormData) {
@@ -121,7 +106,7 @@ export default function WaitlistSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-brand-50 border-2 border-brand-200 rounded-3xl p-12 text-center"
+                className="bg-warm-cream border-2 border-warm-peach rounded-3xl p-12 text-center"
               >
                 <span className="text-6xl mb-5 block">🎉</span>
                 <h3 className="text-2xl font-black text-brand-forest mb-3">
@@ -130,16 +115,16 @@ export default function WaitlistSection() {
                 <p className="text-gray-600 leading-relaxed">
                   תודה רבה! נעדכן אתכם ראשונים ברגע שנפתח בסביבתכם.
                   <br />
-                  <span className="font-semibold text-brand-green">הישארו איתנו 🌱</span>
+                  <span className="font-semibold text-warm-terracotta">הישארו איתנו 🌱</span>
                 </p>
               </motion.div>
             ) : (
               <motion.form
                 key="form"
                 onSubmit={handleSubmit(onSubmit)}
-                className="bg-white rounded-3xl border-2 border-gray-100 shadow-card p-8 md:p-10 space-y-7"
+                className="bg-white rounded-3xl border-2 border-warm-peach/60 shadow-card p-8 md:p-10 space-y-7"
               >
-                {/* Row: name + email */}
+                {/* Row: name + phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="form-label">שם מלא *</label>
@@ -151,6 +136,21 @@ export default function WaitlistSection() {
                     <ErrorMsg msg={errors.full_name?.message} />
                   </div>
                   <div>
+                    <label className="form-label">טלפון *</label>
+                    <input
+                      {...register('phone')}
+                      type="tel"
+                      placeholder="05X-XXXXXXX"
+                      className="form-input"
+                      dir="ltr"
+                    />
+                    <ErrorMsg msg={errors.phone?.message} />
+                  </div>
+                </div>
+
+                {/* Row: email + city */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
                     <label className="form-label">אימייל *</label>
                     <input
                       {...register('email')}
@@ -160,21 +160,6 @@ export default function WaitlistSection() {
                       dir="ltr"
                     />
                     <ErrorMsg msg={errors.email?.message} />
-                  </div>
-                </div>
-
-                {/* Row: phone + city */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="form-label">טלפון</label>
-                    <input
-                      {...register('phone')}
-                      type="tel"
-                      placeholder="05X-XXXXXXX"
-                      className="form-input"
-                      dir="ltr"
-                    />
-                    <ErrorMsg msg={errors.phone?.message} />
                   </div>
                   <div>
                     <label className="form-label">עיר מגורים *</label>
@@ -193,17 +178,14 @@ export default function WaitlistSection() {
                   <label className="form-label">גיל הילד *</label>
                   <div className="flex flex-wrap gap-3 mt-1">
                     {AGES.map((age) => (
-                      <label
-                        key={age}
-                        className="flex items-center gap-2 cursor-pointer"
-                      >
+                      <label key={age} className="flex items-center gap-2 cursor-pointer">
                         <input
                           type="radio"
                           value={age}
                           {...register('child_age')}
                           className="sr-only peer"
                         />
-                        <span className="px-4 py-2 rounded-full border-2 border-gray-200 text-sm font-semibold text-gray-600 cursor-pointer peer-checked:border-brand-sage peer-checked:bg-brand-50 peer-checked:text-brand-green transition-all select-none">
+                        <span className="px-4 py-2 rounded-full border-2 border-gray-200 text-sm font-semibold text-gray-600 cursor-pointer peer-checked:border-warm-terracotta peer-checked:bg-warm-peach/40 peer-checked:text-warm-terracotta transition-all select-none">
                           {age}
                         </span>
                       </label>
@@ -212,30 +194,9 @@ export default function WaitlistSection() {
                   <ErrorMsg msg={errors.child_age?.message} />
                 </div>
 
-                {/* Usage expectation */}
-                <div>
-                  <label className="form-label">כמה פעמים בשבוע תגיעו? *</label>
-                  <div className="flex flex-wrap gap-3 mt-1">
-                    {USAGE.map((u) => (
-                      <label key={u} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          value={u}
-                          {...register('usage_expectation')}
-                          className="sr-only peer"
-                        />
-                        <span className="px-4 py-2 rounded-full border-2 border-gray-200 text-sm font-semibold text-gray-600 cursor-pointer peer-checked:border-warm-amber peer-checked:bg-warm-peach/30 peer-checked:text-amber-700 transition-all select-none">
-                          {u}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                  <ErrorMsg msg={errors.usage_expectation?.message} />
-                </div>
-
                 {/* Most important */}
                 <div>
-                  <label className="form-label">מה הכי חשוב לכם? (אפשר לבחור כמה) *</label>
+                  <label className="form-label">מה הכי מעניין אותך? (אפשר לבחור כמה) *</label>
                   <div className="flex flex-wrap gap-3 mt-1">
                     {MOST_IMPORTANT.map((item) => {
                       const active = selectedImportant.includes(item)
@@ -258,41 +219,6 @@ export default function WaitlistSection() {
                   <ErrorMsg msg={errors.most_important?.message} />
                 </div>
 
-                {/* Time slots */}
-                <div>
-                  <label className="form-label">איזה חלון זמנים מתאים לכם? (אפשר לבחור כמה)</label>
-                  <div className="flex flex-wrap gap-3 mt-1">
-                    {TIME_SLOTS.map((slot) => {
-                      const active = selectedTimeSlots.includes(slot)
-                      return (
-                        <button
-                          key={slot}
-                          type="button"
-                          onClick={() => toggleTimeSlot(slot)}
-                          className={`px-4 py-2 rounded-full border-2 text-sm font-semibold transition-all select-none ${
-                            active
-                              ? 'border-brand-green bg-brand-50 text-brand-green'
-                              : 'border-gray-200 text-gray-600 hover:border-brand-sage'
-                          }`}
-                        >
-                          {active ? '✓ ' : ''}{slot}
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-
-                {/* Free text */}
-                <div>
-                  <label className="form-label">משהו שתרצו להוסיף?</label>
-                  <textarea
-                    {...register('free_text')}
-                    rows={3}
-                    placeholder="שאלות, הצעות, או כל דבר אחר שתרצו שנדע..."
-                    className="form-input resize-none"
-                  />
-                </div>
-
                 {/* Server error */}
                 {serverError && (
                   <p className="text-red-500 text-sm font-medium text-center bg-red-50 border border-red-200 rounded-xl px-4 py-3">
@@ -304,7 +230,12 @@ export default function WaitlistSection() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-primary w-full justify-center text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="w-full justify-center text-base font-black py-4 px-8 rounded-full
+                    bg-warm-terracotta hover:bg-brand-forest text-white
+                    shadow-warm-md hover:shadow-warm-md
+                    transition-all duration-300 hover:-translate-y-0.5
+                    disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0
+                    flex items-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -315,7 +246,7 @@ export default function WaitlistSection() {
                       שולחים...
                     </>
                   ) : (
-                    'הצטרפו לרשימת ההמתנה 🌱'
+                    'אני רוצה להיות בין הראשונים 🌱'
                   )}
                 </button>
 
