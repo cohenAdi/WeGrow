@@ -16,6 +16,7 @@ const baseSchema = z.object({
   child_age:       z.string().min(1, 'אנא בחרו גיל ילד'),
   time_slots:      z.array(z.string()).optional(),
   most_important:  z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
+  join_whatsapp:   z.boolean().optional(),
 })
 
 const schema = baseSchema.refine(
@@ -286,6 +287,28 @@ export default function WaitlistSection() {
                   </div>
                   <ErrorMsg msg={errors.most_important?.message} />
                 </div>
+
+                {/* WhatsApp opt-in */}
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex-shrink-0 mt-0.5">
+                    <input
+                      type="checkbox"
+                      {...register('join_whatsapp')}
+                      className="sr-only peer"
+                    />
+                    <div className="w-6 h-6 rounded-md border-2 border-gray-300 bg-white peer-checked:bg-[#25D366] peer-checked:border-[#25D366] transition-all flex items-center justify-center">
+                      {/* SVG is white — invisible on white bg, visible on green bg */}
+                      <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 12 10" fill="none">
+                        <path d="M1 5l3.5 3.5L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="text-sm text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors" dir="rtl">
+                    <span className="font-semibold text-gray-700">💬 אשמח להצטרף לקבוצת הווטסאפ של הקהילה</span>
+                    <br />
+                    <span className="text-gray-400">עדכונים שוטפים, הזמנות למפגשים ותחושת שייכות מהיום הראשון.</span>
+                  </span>
+                </label>
 
                 {/* Server error */}
                 {serverError && (

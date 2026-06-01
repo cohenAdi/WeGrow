@@ -12,6 +12,7 @@ const schema = z.object({
   most_important:     z.array(z.string()).min(1),
   free_text:          z.string().optional(),
   time_slots:         z.array(z.string()).optional(),
+  join_whatsapp:      z.boolean().optional(),
 })
 
 export async function POST(req: NextRequest) {
