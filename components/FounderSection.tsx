@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
@@ -9,107 +10,116 @@ export default function FounderSection() {
 
   return (
     <section id="about" ref={ref} className="py-24 bg-warm-cream relative overflow-hidden">
-      {/* Background plant blobs */}
+      {/* Background decorations */}
       <div
-        className="absolute -top-16 -left-16 w-72 h-72 rounded-full opacity-20 pointer-events-none"
+        className="absolute -top-20 -left-20 w-80 h-80 rounded-full opacity-25 pointer-events-none"
         style={{ background: 'radial-gradient(circle, #C2D0A0 0%, transparent 70%)' }}
       />
       <div
-        className="absolute -bottom-16 -right-16 w-80 h-80 rounded-full opacity-15 pointer-events-none"
+        className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full opacity-15 pointer-events-none"
         style={{ background: 'radial-gradient(circle, #F2DDD0 0%, transparent 70%)' }}
       />
 
       <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10"
-        >
-          <span className="badge mb-2 inline-flex">💚 &nbsp;הסיפור שלנו</span>
-        </motion.div>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="max-w-[700px] mx-auto"
-        >
-          <div className="bg-white rounded-3xl shadow-card border border-warm-peach p-8 md:p-12">
-
-            {/* Photo placeholder + name */}
-            <div className="flex flex-col items-center mb-10">
-              <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-warm-peach via-warm-cream to-brand-pale flex items-center justify-center shadow-warm-sm border-4 border-warm-peach/40 mb-3 select-none">
-                <span className="text-6xl">🤱</span>
+            {/* Photo — left on desktop, top on mobile */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
+            >
+              <div className="relative overflow-hidden rounded-[32px] shadow-[0_24px_64px_rgba(0,0,0,0.13)]">
+                <Image
+                  src="/adi-and-ela.jpeg"
+                  alt="עדי ואלה, מייסדת We Grow"
+                  width={600}
+                  height={760}
+                  className="w-full object-cover"
+                  style={{ objectPosition: '50% 12%', maxHeight: '620px' }}
+                  priority
+                />
+                {/* Subtle warm gradient at bottom */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'linear-gradient(to top, rgba(196,132,90,0.08) 0%, transparent 40%)',
+                  }}
+                />
               </div>
-              <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase">
-                עדי ואֵלה • תמונה בקרוב
-              </p>
-            </div>
+            </motion.div>
 
-            {/* Story */}
-            <div className="space-y-5 text-gray-700 text-lg leading-relaxed text-right" dir="rtl">
-              <p className="text-2xl font-black text-brand-forest">
+            {/* Story — right on desktop */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col justify-center"
+              dir="rtl"
+            >
+              <span className="badge mb-6 self-start">💚 &nbsp;הסיפור שלנו</span>
+
+              <h2 className="text-3xl sm:text-4xl font-black text-brand-forest mb-8 leading-tight">
                 היי, אני עדי.
-              </p>
+              </h2>
 
-              <p>
-                אני אמא לאלה, בת שנה וחצי.
-              </p>
+              <div className="space-y-4 text-gray-700 leading-relaxed" style={{ fontSize: '17px' }}>
+                <p>אני אמא לאלה.</p>
 
-              <p>
-                כמו הרבה אמהות, גם אני ניסיתי למצוא את האיזון בין הרצון להיות נוכחת עבורה
-                לבין הרצון להמשיך לעבוד, ליצור ולהתפתח.
-              </p>
+                <p>
+                  כמו הרבה הורים, גם אני ניסיתי למצוא את האיזון בין הרצון להיות נוכחת עבורה
+                  לבין הרצון להמשיך לעבוד, ליצור ולהתפתח.
+                </p>
 
-              <p>
-                עבדתי מהבית עם פעוטה לצידי, ניסיתי מטפלת פרטית, חיפשתי מסגרות גמישות
-                וביליתי לא מעט שעות עם לפטופ וצעצועים בתיק בניסיון למצוא פתרון שיעבוד בשביל שתינו.
-              </p>
+                <p>
+                  עבדתי מהבית עם פעוטה לצידי, ניסיתי מטפלת פרטית, חיפשתי מסגרות גמישות
+                  וביליתי לא מעט שעות עם לפטופ וצעצועים בתיק בניסיון למצוא פתרון שיעבוד
+                  בשביל שתינו.
+                </p>
 
-              <p className="font-semibold text-brand-forest text-xl">
-                בכל פעם הרגשתי שמשהו חסר.
-              </p>
+                <p className="font-semibold text-brand-forest text-[18px]">
+                  בכל פעם הרגשתי שמשהו חסר.
+                </p>
 
-              <p>
-                או שהייתי רחוקה מדי ממנה, או שלא באמת הצלחתי לעבוד.
-              </p>
+                <p>או שהייתי רחוקה מדי ממנה, או שלא באמת הצלחתי לעבוד.</p>
 
-              <p>
-                הבנתי שאני כנראה לא היחידה שמרגישה ככה.
-                <br />
-                שיש עוד הורים שמחפשים דרך אחרת.
-              </p>
+                <p>
+                  הבנתי שאני כנראה לא היחידה שמרגישה ככה.
+                  <br />
+                  שיש עוד הורים שמחפשים דרך אחרת.
+                </p>
 
-              <p>
-                מקום שמאפשר להיות קרובים לילדים שלנו, בלי לוותר על עצמנו בדרך.
-                <br />
-                מקום שבו גם ההורים וגם הילדים יכולים לצמוח.
-              </p>
+                <p>
+                  מקום שמאפשר להיות קרובים לילדים שלנו, בלי לוותר על עצמנו בדרך.
+                  <br />
+                  מקום שבו גם ההורים וגם הילדים יכולים לצמוח.
+                </p>
 
-              <p className="font-bold text-brand-forest text-xl">
-                וככה נולד We Grow.
-              </p>
-            </div>
+                <p className="font-bold text-brand-forest text-[18px]">
+                  וככה נולד We Grow.
+                </p>
+              </div>
 
-            {/* Signature */}
-            <div className="mt-10 pt-6 border-t border-warm-peach/50 flex items-center justify-center gap-2">
-              <span className="text-2xl">💚</span>
-              <p className="font-black text-brand-forest text-lg">עדי ואֵלה</p>
-            </div>
+              {/* Signature */}
+              <div className="mt-8 flex items-center gap-3">
+                <span className="text-2xl">💚</span>
+                <p className="font-black text-brand-forest text-xl">עדי ואלה</p>
+              </div>
+
+              {/* Divider + inclusive note */}
+              <div className="mt-8 pt-6 border-t border-warm-peach/60">
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  למרות שחלק מהטקסט באתר כתוב בלשון נקבה, We Grow מיועד כמובן גם לאבות,
+                  לאמהות ולכל הורה שמחפש דרך חדשה לשלב בין משפחה, עבודה וקהילה.
+                </p>
+              </div>
+            </motion.div>
+
           </div>
-
-          {/* Inclusive note */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center text-gray-400 text-sm mt-6 px-2 leading-relaxed"
-          >
-            למרות שחלק מהטקסט באתר כתוב בלשון נקבה, We Grow מיועד כמובן גם לאבות, לאמהות
-            ולכל הורה שמחפש דרך חדשה לשלב בין משפחה, עבודה וקהילה.
-          </motion.p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
