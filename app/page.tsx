@@ -7,6 +7,7 @@ import FounderSection    from '@/components/FounderSection'
 import TrustSection      from '@/components/TrustSection'
 import WaitlistSection   from '@/components/WaitlistSection'
 import FinalCTASection   from '@/components/FinalCTASection'
+import ComingSoonSection from '@/components/ComingSoonSection'
 import Footer            from '@/components/Footer'
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <TrustSection />
         <WaitlistSection />
         <FinalCTASection />
+        <ComingSoonSection />
       </main>
       <Footer />
     </>

@@ -3,105 +3,98 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const CITIES = [
-  { name: 'רחובות',         pop: 1, status: 'hot' },
-  { name: 'נס ציונה',       pop: 2, status: 'hot' },
-  { name: 'יבנה',           pop: 3, status: 'warm' },
-  { name: 'גדרה',           pop: 4, status: 'warm' },
-  { name: 'מזכרת בתיה',     pop: 5, status: 'coming' },
-]
-
-const statusConfig = {
-  hot:    { bg: 'bg-red-50   border-red-200',   dot: 'bg-red-500',    label: 'ביקוש גבוה' },
-  warm:   { bg: 'bg-amber-50 border-amber-200', dot: 'bg-amber-500',  label: 'עניין רב' },
-  coming: { bg: 'bg-gray-50  border-gray-200',  dot: 'bg-gray-400',   label: 'בדיקה' },
-}
-
 export default function ComingSoonSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
+  const fade = (delay = 0) => ({
+    initial: { opacity: 0, y: 20 },
+    animate: inView ? { opacity: 1, y: 0 } : {},
+    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+  })
+
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-br from-warm-sand via-warm-cream to-warm-peach/30">
-      <div className="section-container text-center">
+    <section ref={ref} className="py-24 bg-warm-cream relative overflow-hidden">
+      {/* Background blobs */}
+      <div
+        className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-20 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #C2D0A0 0%, transparent 70%)' }}
+      />
+      <div
+        className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full opacity-15 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #F2DDD0 0%, transparent 70%)' }}
+      />
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="badge mb-5 inline-flex bg-warm-amber/20 border-warm-amber/40 text-warm-amber font-bold">
-            📍 &nbsp;המיקום הבא שלנו
-          </span>
+      <div className="section-container relative z-10">
+        <div className="max-w-[620px] mx-auto text-center">
 
-          <h2 className="section-title mb-4">
-            בקרוב באזור
-            <span className="text-brand-green"> רחובות </span>|
-            <span className="text-brand-green"> נס ציונה </span>|
-            <span className="text-brand-green"> יבנה</span>
-          </h2>
-          <p className="section-subtitle mb-12">
-            אנחנו בודקים את הביקוש לקראת הפתיחה הראשונה.
-            הצטרפו לרשימת ההמתנה ותהיו הראשונים לדעת.
-          </p>
-        </motion.div>
+          {/* Title */}
+          <motion.div {...fade(0)}>
+            <h2 className="text-3xl sm:text-4xl font-black text-brand-forest mb-6 leading-tight">
+              🌱 We Grow נמצא בשלבי הקמה
+            </h2>
+          </motion.div>
 
-        {/* City cards */}
-        <div className="flex flex-wrap justify-center gap-4 mb-14">
-          {CITIES.map((city, i) => {
-            const cfg = statusConfig[city.status as keyof typeof statusConfig]
-            return (
-              <motion.div
-                key={city.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-                className={`${cfg.bg} border-2 rounded-2xl px-6 py-4 flex items-center gap-3 min-w-[160px] shadow-sm`}
-              >
-                <span className={`w-3 h-3 ${cfg.dot} rounded-full animate-pulse-slow flex-shrink-0`} />
-                <div className="text-right">
-                  <p className="font-bold text-gray-800 text-base">{city.name}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{cfg.label}</p>
+          {/* Body */}
+          <motion.div {...fade(0.1)} className="space-y-4 text-gray-600 text-lg leading-relaxed mb-10">
+            <p>
+              אנחנו בונים את We Grow מתוך צורך אמיתי שחווינו כהורים,
+              ומעצבים אותו יחד עם הקהילה.
+            </p>
+            <p>
+              כל הרשמה, רעיון או שיתוף עוזרים לנו ליצור מקום שבו
+              הורים עובדים וילדים צומחים.
+            </p>
+          </motion.div>
+
+          {/* Timeline box */}
+          <motion.div
+            {...fade(0.2)}
+            className="bg-white border border-warm-peach rounded-2xl px-8 py-7 mb-4 shadow-sm text-right"
+            dir="rtl"
+          >
+            <div className="space-y-5">
+              <div className="flex items-start gap-3">
+                <span className="text-xl mt-0.5">📍</span>
+                <div>
+                  <p className="font-bold text-gray-800 text-base mb-0.5">אזור הפעילות הראשון</p>
+                  <p className="text-brand-green font-semibold">רחובות | נס ציונה | יבנה</p>
                 </div>
-              </motion.div>
-            )
-          })}
+              </div>
+              <div className="border-t border-warm-peach/50" />
+              <div className="flex items-start gap-3">
+                <span className="text-xl mt-0.5">📅</span>
+                <div>
+                  <p className="font-bold text-gray-800 text-base mb-0.5">פתיחה משוערת</p>
+                  <p className="text-brand-green font-semibold">תחילת 2027</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Small note */}
+          <motion.p {...fade(0.25)} className="text-gray-400 text-sm mb-12 leading-relaxed">
+            התאריך עשוי להשתנות בהתאם לקצב ההקמה, למציאת המיקום המתאים
+            ולבניית הקהילה הראשונה.
+          </motion.p>
+
+          {/* CTA */}
+          <motion.div {...fade(0.35)}>
+            <p className="text-xl font-black text-brand-forest mb-6">
+              רוצים להיות הראשונים לשמוע כשנתקדם?
+            </p>
+
+            <a href="#waitlist" className="btn-primary text-base inline-flex">
+              אני רוצה להצטרף לרשימת ההמתנה 🌱
+            </a>
+
+            <p className="text-sm text-gray-400 mt-5 leading-relaxed">
+              ✨ הנרשמים יקבלו עדכונים בלעדיים, הזמנות למפגשי היכרות
+              וגישה מוקדמת להרשמה.
+            </p>
+          </motion.div>
+
         </div>
-
-        {/* Demand meter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="bg-white rounded-2xl shadow-card max-w-md mx-auto p-6 mb-10"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-semibold text-gray-500">מד עניין — רחובות</span>
-            <span className="text-sm font-black text-brand-green">73%</span>
-          </div>
-          <div className="h-3 bg-brand-pale rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={inView ? { width: '73%' } : {}}
-              transition={{ duration: 1.2, delay: 0.7, ease: 'easeOut' }}
-              className="h-full bg-gradient-to-l from-brand-sage to-brand-green rounded-full"
-            />
-          </div>
-          <p className="text-xs text-gray-400 mt-3 text-center">
-            מבוסס על תגובות מהסקר הראשוני שלנו
-          </p>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <a href="#waitlist" className="btn-primary text-base">
-            אני רוצה להיות ראשון לשמוע
-          </a>
-        </motion.div>
       </div>
     </section>
   )
