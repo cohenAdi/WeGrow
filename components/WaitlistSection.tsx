@@ -7,21 +7,23 @@ import { z } from 'zod'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const schema = z.object({
+const baseSchema = z.object({
   full_name:       z.string().min(2, 'שם חייב להכיל לפחות 2 תווים'),
   email:           z.string().email('אנא הזינו כתובת אימייל תקינה'),
   phone:           z.string().min(9, 'אנא הזינו מספר טלפון תקין'),
   city:            z.string().min(1, 'אנא בחרו עיר'),
   other_city:      z.string().optional(),
   child_age:       z.string().min(1, 'אנא בחרו גיל ילד'),
-  preferred_hours: z.array(z.string()).optional(),
+  time_slots:      z.array(z.string()).optional(),
   most_important:  z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
-}).refine(
+})
+
+const schema = baseSchema.refine(
   (d) => d.city !== 'אחר' || (d.other_city && d.other_city.trim().length >= 2),
   { message: 'אנא ציינו את העיר', path: ['other_city'] }
 )
 
-type FormData = z.infer<typeof schema>
+type FormData = z.infer<typeof baseSchema>
 
 const CITIES  = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מזכרת בתיה', 'אחר']
 const AGES    = ['בהריון', '0-1', '1-2', '2-3']
@@ -48,12 +50,12 @@ export default function WaitlistSection() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { most_important: [], preferred_hours: [] },
+    defaultValues: { most_important: [], time_slots: [] },
   })
 
   const selectedCity      = watch('city')
   const selectedImportant = watch('most_important') ?? []
-  const selectedHours     = watch('preferred_hours') ?? []
+  const selectedHours     = watch('time_slots') ?? []
 
   function toggleImportant(item: string) {
     const next = selectedImportant.includes(item)
@@ -66,7 +68,7 @@ export default function WaitlistSection() {
     const next = selectedHours.includes(item)
       ? selectedHours.filter((x) => x !== item)
       : [...selectedHours, item]
-    setValue('preferred_hours', next)
+    setValue('time_slots', next)
   }
 
   async function onSubmit(data: FormData) {
