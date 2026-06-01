@@ -8,18 +8,24 @@ import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const schema = z.object({
-  full_name:      z.string().min(2, 'שם חייב להכיל לפחות 2 תווים'),
-  email:          z.string().email('אנא הזינו כתובת אימייל תקינה'),
-  phone:          z.string().min(9, 'אנא הזינו מספר טלפון תקין'),
-  city:           z.string().min(1, 'אנא בחרו עיר'),
-  child_age:      z.string().min(1, 'אנא בחרו גיל ילד'),
-  most_important: z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
-})
+  full_name:       z.string().min(2, 'שם חייב להכיל לפחות 2 תווים'),
+  email:           z.string().email('אנא הזינו כתובת אימייל תקינה'),
+  phone:           z.string().min(9, 'אנא הזינו מספר טלפון תקין'),
+  city:            z.string().min(1, 'אנא בחרו עיר'),
+  other_city:      z.string().optional(),
+  child_age:       z.string().min(1, 'אנא בחרו גיל ילד'),
+  preferred_hours: z.array(z.string()).optional(),
+  most_important:  z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
+}).refine(
+  (d) => d.city !== 'אחר' || (d.other_city && d.other_city.trim().length >= 2),
+  { message: 'אנא ציינו את העיר', path: ['other_city'] }
+)
 
 type FormData = z.infer<typeof schema>
 
-const CITIES         = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מזכרת בתיה', 'אחר']
-const AGES           = ['בהריון', '0-1', '1-2', '2-3', '3-4']
+const CITIES  = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מזכרת בתיה', 'אחר']
+const AGES    = ['בהריון', '0-1', '1-2', '2-3']
+const HOURS   = ['בוקר (8:00–12:00)', 'אחה"צ (12:00–16:00)', 'יום מלא', 'גמיש']
 const MOST_IMPORTANT = ['חלל עבודה', 'מרחב התפתחות לילדים', 'קהילה', 'הרצאות', 'חוגים']
 
 function ErrorMsg({ msg }: { msg?: string }) {
@@ -42,10 +48,12 @@ export default function WaitlistSection() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { most_important: [] },
+    defaultValues: { most_important: [], preferred_hours: [] },
   })
 
+  const selectedCity      = watch('city')
   const selectedImportant = watch('most_important') ?? []
+  const selectedHours     = watch('preferred_hours') ?? []
 
   function toggleImportant(item: string) {
     const next = selectedImportant.includes(item)
@@ -54,14 +62,25 @@ export default function WaitlistSection() {
     setValue('most_important', next, { shouldValidate: true })
   }
 
+  function toggleHour(item: string) {
+    const next = selectedHours.includes(item)
+      ? selectedHours.filter((x) => x !== item)
+      : [...selectedHours, item]
+    setValue('preferred_hours', next)
+  }
+
   async function onSubmit(data: FormData) {
     setLoading(true)
     setServerError('')
     try {
+      const payload = {
+        ...data,
+        city: data.city === 'אחר' && data.other_city ? data.other_city : data.city,
+      }
       const res = await fetch('/api/waitlist', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(data),
+        body:    JSON.stringify(payload),
       })
       const json = await res.json()
       if (!res.ok) {
@@ -173,6 +192,26 @@ export default function WaitlistSection() {
                   </div>
                 </div>
 
+                {/* Other city — shown only when "אחר" is selected */}
+                <AnimatePresence>
+                  {selectedCity === 'אחר' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <label className="form-label">באיזו עיר? *</label>
+                      <input
+                        {...register('other_city')}
+                        placeholder="שם העיר"
+                        className="form-input"
+                      />
+                      <ErrorMsg msg={errors.other_city?.message} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Child age */}
                 <div>
                   <label className="form-label">גיל הילד *</label>
@@ -192,6 +231,30 @@ export default function WaitlistSection() {
                     ))}
                   </div>
                   <ErrorMsg msg={errors.child_age?.message} />
+                </div>
+
+                {/* Preferred hours */}
+                <div>
+                  <label className="form-label">אילו שעות מתאימות לך? (אפשר לבחור כמה)</label>
+                  <div className="flex flex-wrap gap-3 mt-1">
+                    {HOURS.map((hour) => {
+                      const active = selectedHours.includes(hour)
+                      return (
+                        <button
+                          key={hour}
+                          type="button"
+                          onClick={() => toggleHour(hour)}
+                          className={`px-4 py-2 rounded-full border-2 text-sm font-semibold transition-all select-none ${
+                            active
+                              ? 'border-warm-terracotta bg-warm-peach/40 text-warm-terracotta'
+                              : 'border-gray-200 text-gray-600 hover:border-warm-peach'
+                          }`}
+                        >
+                          {active ? '✓ ' : ''}{hour}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
 
                 {/* Most important */}
