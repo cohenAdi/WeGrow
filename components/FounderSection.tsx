@@ -8,76 +8,108 @@ export default function FounderSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" ref={ref} className="py-24 bg-warm-cream">
+    <section id="about" ref={ref} className="py-24 bg-warm-cream relative overflow-hidden">
+      {/* Background plant blobs */}
+      <div
+        className="absolute -top-16 -left-16 w-72 h-72 rounded-full opacity-20 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #C2D0A0 0%, transparent 70%)' }}
+      />
+      <div
+        className="absolute -bottom-16 -right-16 w-80 h-80 rounded-full opacity-15 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #F2DDD0 0%, transparent 70%)' }}
+      />
+
       <div className="section-container">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14"
-          >
-            <span className="badge mb-4 inline-flex">💚 &nbsp;הסיפור שלנו</span>
-            <h2 className="section-title mb-4">למה הקמנו את We Grow?</h2>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10"
+        >
+          <span className="badge mb-2 inline-flex">💚 &nbsp;הסיפור שלנו</span>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="bg-white rounded-3xl shadow-card border border-warm-peach p-8 md:p-12"
-          >
-            <div className="text-7xl text-warm-peach font-serif leading-none mb-4 select-none" aria-hidden>
-              ❝
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="max-w-[700px] mx-auto"
+        >
+          <div className="bg-white rounded-3xl shadow-card border border-warm-peach p-8 md:p-12">
+
+            {/* Photo placeholder + name */}
+            <div className="flex flex-col items-center mb-10">
+              <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-warm-peach via-warm-cream to-brand-pale flex items-center justify-center shadow-warm-sm border-4 border-warm-peach/40 mb-3 select-none">
+                <span className="text-6xl">🤱</span>
+              </div>
+              <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase">
+                עדי ואֵלה • תמונה בקרוב
+              </p>
             </div>
 
-            <div className="space-y-5 text-gray-700 text-lg leading-relaxed mb-8 text-right">
+            {/* Story */}
+            <div className="space-y-5 text-gray-700 text-lg leading-relaxed text-right" dir="rtl">
+              <p className="text-2xl font-black text-brand-forest">
+                היי, אני עדי.
+              </p>
+
               <p>
-                כשהפכתי לאמא גיליתי שהעולם מציע לי שתי אפשרויות:
-                <br />
-                להיות עם הילדה שלי,
-                <br />
-                או לעבוד.
+                אני אמא לאלה, בת שנה וחצי.
               </p>
-              <p>אבל לא מצאתי מקום שאפשר בו גם וגם.</p>
-              <p className="font-semibold text-brand-forest">
-                We Grow נולד מתוך הצורך האישי הזה.
+
+              <p>
+                כמו הרבה אמהות, גם אני ניסיתי למצוא את האיזון בין הרצון להיות נוכחת עבורה
+                לבין הרצון להמשיך לעבוד, ליצור ולהתפתח.
+              </p>
+
+              <p>
+                עבדתי מהבית עם פעוטה לצידי, ניסיתי מטפלת פרטית, חיפשתי מסגרות גמישות
+                וביליתי לא מעט שעות עם לפטופ וצעצועים בתיק בניסיון למצוא פתרון שיעבוד בשביל שתינו.
+              </p>
+
+              <p className="font-semibold text-brand-forest text-xl">
+                בכל פעם הרגשתי שמשהו חסר.
+              </p>
+
+              <p>
+                או שהייתי רחוקה מדי ממנה, או שלא באמת הצלחתי לעבוד.
+              </p>
+
+              <p>
+                הבנתי שאני כנראה לא היחידה שמרגישה ככה.
+                <br />
+                שיש עוד הורים שמחפשים דרך אחרת.
+              </p>
+
+              <p>
+                מקום שמאפשר להיות קרובים לילדים שלנו, בלי לוותר על עצמנו בדרך.
+                <br />
+                מקום שבו גם ההורים וגם הילדים יכולים לצמוח.
+              </p>
+
+              <p className="font-bold text-brand-forest text-xl">
+                וככה נולד We Grow.
               </p>
             </div>
 
-            <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-warm-peach to-warm-terracotta flex items-center justify-center text-2xl shadow-warm-sm flex-shrink-0">
-                🌱
-              </div>
-              <div>
-                <p className="font-black text-gray-800">מייסדת We Grow</p>
-                <p className="text-sm text-gray-500">אמא, יזמית ומאמינה שאפשר אחרת</p>
-              </div>
+            {/* Signature */}
+            <div className="mt-10 pt-6 border-t border-warm-peach/50 flex items-center justify-center gap-2">
+              <span className="text-2xl">💚</span>
+              <p className="font-black text-brand-forest text-lg">עדי ואֵלה</p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-3 gap-4 mt-8"
+          {/* Inclusive note */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center text-gray-400 text-sm mt-6 px-2 leading-relaxed"
           >
-            {[
-              { icon: '❤️', val: 'זהות', sub: 'לא רק אמא' },
-              { icon: '🌱', val: 'צמיחה', sub: 'שלך ושל ילדך' },
-              { icon: '🤝', val: 'קהילה', sub: 'של אמהות אמיתיות' },
-            ].map((v) => (
-              <div
-                key={v.val}
-                className="bg-white rounded-2xl border border-warm-peach p-5 text-center shadow-sm"
-              >
-                <span className="text-3xl mb-2 block">{v.icon}</span>
-                <p className="font-black text-gray-800 text-sm">{v.val}</p>
-                <p className="text-xs text-gray-400 mt-0.5">{v.sub}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+            למרות שחלק מהטקסט באתר כתוב בלשון נקבה, We Grow מיועד כמובן גם לאבות, לאמהות
+            ולכל הורה שמחפש דרך חדשה לשלב בין משפחה, עבודה וקהילה.
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   )
