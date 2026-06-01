@@ -40,9 +40,12 @@ export default function ProblemSection() {
               </p>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-warm-peach/60">
+            <div className="mt-8 pt-6 border-t border-warm-peach/60 space-y-4">
               <p className="font-bold text-brand-forest text-lg">
                 אנחנו מכירות את זה, כי גם אנחנו שם.
+              </p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                למרות שחלק מהטקסט באתר כתוב בלשון נקבה, We Grow מיועד כמובן גם לאבות, לאמהות ולכל הורה שמחפש דרך חדשה לשלב בין משפחה, עבודה וקהילה.
               </p>
             </div>
           </motion.div>

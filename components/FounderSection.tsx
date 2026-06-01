@@ -109,13 +109,6 @@ export default function FounderSection() {
                 <p className="font-black text-brand-forest text-xl">עדי ואלה</p>
               </div>
 
-              {/* Divider + inclusive note */}
-              <div className="mt-8 pt-6 border-t border-warm-peach/60">
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  למרות שחלק מהטקסט באתר כתוב בלשון נקבה, We Grow מיועד כמובן גם לאבות,
-                  לאמהות ולכל הורה שמחפש דרך חדשה לשלב בין משפחה, עבודה וקהילה.
-                </p>
-              </div>
             </motion.div>
 
           </div>
