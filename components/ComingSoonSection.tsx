@@ -14,7 +14,7 @@ export default function ComingSoonSection() {
   })
 
   return (
-    <section ref={ref} className="py-24 bg-warm-cream relative overflow-hidden">
+    <section id="coming-soon" ref={ref} className="py-24 bg-warm-cream relative overflow-hidden">
       {/* Background blobs */}
       <div
         className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-20 pointer-events-none"

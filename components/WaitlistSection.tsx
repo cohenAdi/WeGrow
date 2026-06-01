@@ -89,6 +89,9 @@ export default function WaitlistSection() {
         setServerError(json.error ?? 'אירעה שגיאה, אנא נסו שנית')
       } else {
         setSuccess(true)
+        setTimeout(() => {
+          document.getElementById('coming-soon')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 600)
       }
     } catch {
       setServerError('שגיאה בשליחה — אנא בדקו חיבור לאינטרנט')
