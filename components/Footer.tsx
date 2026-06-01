@@ -20,6 +20,13 @@ export default function Footer() {
           © {new Date().getFullYear()} We Grow. כל הזכויות שמורות.
         </p>
       </div>
+
+      {/* Gender note */}
+      <div className="section-container mt-6 border-t border-white/10 pt-5">
+        <p className="text-white/30 text-xs text-center">
+          הטקסט באתר כתוב בלשון נקבה מטעמי נוחות, אך We Grow מיועד לכל ההורים.
+        </p>
+      </div>
     </footer>
   )
 }
