@@ -11,6 +11,7 @@ const schema = z.object({
   usage_expectation:  z.string().optional(),
   most_important:     z.array(z.string()).min(1),
   free_text:          z.string().optional(),
+  days_per_week:      z.string().optional(),
   time_slots:         z.array(z.string()).optional(),
   join_whatsapp:      z.boolean().optional(),
 })

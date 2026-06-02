@@ -14,6 +14,7 @@ const baseSchema = z.object({
   city:            z.string().min(1, 'אנא בחרו עיר'),
   other_city:      z.string().optional(),
   child_age:       z.string().min(1, 'אנא בחרו גיל ילד'),
+  days_per_week:   z.string().optional(),
   time_slots:      z.array(z.string()).optional(),
   most_important:  z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
   join_whatsapp:   z.boolean().optional(),
@@ -28,6 +29,7 @@ type FormData = z.infer<typeof baseSchema>
 
 const CITIES  = ['רחובות', 'נס ציונה', 'יבנה', 'גדרה', 'מזכרת בתיה', 'אחר']
 const AGES    = ['בהריון', '0-1', '1-2', '2-3']
+const DAYS_PER_WEEK = ['1-2 ימים', '3-4 ימים', '5 ימים', 'גמיש']
 const HOURS   = ['בוקר (8:00–12:00)', 'אחה"צ (12:00–16:00)', 'יום מלא', 'גמיש']
 const MOST_IMPORTANT = ['חלל עבודה', 'מרחב התפתחות לילדים', 'קהילה', 'הרצאות', 'חוגים']
 
@@ -237,6 +239,26 @@ export default function WaitlistSection() {
                     ))}
                   </div>
                   <ErrorMsg msg={errors.child_age?.message} />
+                </div>
+
+                {/* Days per week */}
+                <div>
+                  <label className="form-label">כמה ימים בשבוע תרצו להגיע?</label>
+                  <div className="flex flex-wrap gap-3 mt-1">
+                    {DAYS_PER_WEEK.map((day) => (
+                      <label key={day} className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          value={day}
+                          {...register('days_per_week')}
+                          className="sr-only peer"
+                        />
+                        <span className="px-4 py-2 rounded-full border-2 border-gray-200 text-sm font-semibold text-gray-600 cursor-pointer peer-checked:border-warm-terracotta peer-checked:bg-warm-peach/40 peer-checked:text-warm-terracotta transition-all select-none">
+                          {day}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Preferred hours */}
