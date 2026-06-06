@@ -25,16 +25,23 @@ export default function Footer() {
       <div className="section-container mt-5 border-t border-white/10 pt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm">
         <a
           href="/privacy"
-          className="text-white/50 hover:text-white transition-colors underline-offset-2 hover:underline"
+          className="text-white/50 hover:text-white transition-colors underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
         >
           מדיניות פרטיות
+        </a>
+        <span className="text-white/20" aria-hidden="true">|</span>
+        <a
+          href="/accessibility"
+          className="text-white/50 hover:text-white transition-colors underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+        >
+          הצהרת נגישות
         </a>
         <span className="text-white/20" aria-hidden="true">|</span>
         <span className="text-white/40">
           צור קשר:{' '}
           <a
             href="mailto:info@wegrow.co.il"
-            className="text-white/60 hover:text-white transition-colors hover:underline underline-offset-2"
+            className="text-white/60 hover:text-white transition-colors hover:underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
           >
             info@wegrow.co.il
           </a>
