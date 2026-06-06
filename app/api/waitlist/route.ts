@@ -14,6 +14,7 @@ const schema = z.object({
   days_per_week:      z.string().optional(),
   time_slots:         z.array(z.string()).optional(),
   join_whatsapp:      z.boolean().optional(),
+  privacy_consent:    z.boolean().optional(),
 })
 
 export async function POST(req: NextRequest) {

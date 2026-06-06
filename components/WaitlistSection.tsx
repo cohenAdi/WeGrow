@@ -18,6 +18,7 @@ const baseSchema = z.object({
   time_slots:      z.array(z.string()).optional(),
   most_important:  z.array(z.string()).min(1, 'אנא בחרו לפחות אחד'),
   join_whatsapp:   z.boolean().optional(),
+  privacy_consent: z.boolean().refine((v) => v === true, { message: 'יש לאשר את מדיניות הפרטיות כדי להמשיך' }),
 })
 
 const schema = baseSchema.refine(
@@ -332,6 +333,40 @@ export default function WaitlistSection() {
                   </span>
                 </label>
 
+                {/* Privacy consent */}
+                <div>
+                  <div className="flex items-start gap-3">
+                    <div className="relative flex-shrink-0 mt-0.5">
+                      <input
+                        id="privacy_consent"
+                        type="checkbox"
+                        {...register('privacy_consent')}
+                        className="sr-only peer"
+                      />
+                      <div className="w-6 h-6 rounded-md border-2 border-gray-300 bg-white peer-checked:bg-warm-terracotta peer-checked:border-warm-terracotta transition-all flex items-center justify-center cursor-pointer"
+                           onClick={() => document.getElementById('privacy_consent')?.click()}>
+                        <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+                          <path d="M1 5l3.5 3.5L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <label htmlFor="privacy_consent" className="text-sm text-gray-600 leading-relaxed cursor-pointer" dir="rtl">
+                      אני מאשר/ת את{' '}
+                      <a
+                        href="/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-green font-semibold hover:text-brand-forest underline underline-offset-2 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        מדיניות הפרטיות
+                      </a>
+                      {' '}ומסכים/ה לקבל עדכונים בנוגע ל-We Grow
+                    </label>
+                  </div>
+                  <ErrorMsg msg={errors.privacy_consent?.message} />
+                </div>
+
                 {/* Server error */}
                 {serverError && (
                   <p className="text-red-500 text-sm font-medium text-center bg-red-50 border border-red-200 rounded-xl px-4 py-3">
@@ -364,7 +399,7 @@ export default function WaitlistSection() {
                 </button>
 
                 <p className="text-xs text-gray-400 text-center">
-                  אנחנו שומרים על פרטיותכם. לא נשתף את הפרטים שלכם עם שום גורם.
+                  הפרטים ישמשו ליצירת קשר ולעדכונים בנוגע ל-We Grow בלבד.
                 </p>
               </motion.form>
             )}

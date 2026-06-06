@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="section-container flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <span className="text-xl">🌱</span>
+          <span className="text-xl" aria-hidden="true">🌱</span>
           <span className="text-lg font-black text-white tracking-tight">
             We<span className="text-warm-rose"> Grow</span>
           </span>
@@ -21,9 +21,29 @@ export default function Footer() {
         </p>
       </div>
 
+      {/* Links */}
+      <div className="section-container mt-5 border-t border-white/10 pt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm">
+        <a
+          href="/privacy"
+          className="text-white/50 hover:text-white transition-colors underline-offset-2 hover:underline"
+        >
+          מדיניות פרטיות
+        </a>
+        <span className="text-white/20" aria-hidden="true">|</span>
+        <span className="text-white/40">
+          צור קשר:{' '}
+          <a
+            href="mailto:info@wegrow.co.il"
+            className="text-white/60 hover:text-white transition-colors hover:underline underline-offset-2"
+          >
+            info@wegrow.co.il
+          </a>
+        </span>
+      </div>
+
       {/* Gender note */}
-      <div className="section-container mt-6 border-t border-white/10 pt-5">
-        <p className="text-white/30 text-xs text-center">
+      <div className="section-container mt-3">
+        <p className="text-white/25 text-xs text-center">
           הטקסט באתר כתוב בלשון נקבה מטעמי נוחות, אך We Grow מיועד לכל ההורים.
         </p>
       </div>
